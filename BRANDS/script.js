@@ -1,77 +1,46 @@
-let container = document.createElement('div')
-container.classList.add('container')
-document.body.appendChild(container)
+let container1 = document.createElement('div')
+container1.classList.add('container')
+document.body.appendChild(container1)
 
 let row1 = document.createElement('div')
-row1.classList.add('row','m-4')
-row1.innerHTML =  `<ul type="none" class="d-flex">
+row1.classList.add('row','m-4','white')
+row1.innerHTML = `<ul type="none" class="d-flex">
 <li class="ms-3"><a                   href="https://baburajan03.github.io/WEBCODE-MAKEUP-API--TASK/HOME/index.html"><img  class="image mt-3" src="./makeup icon.jpg" ></a></li>
 <li class="ms-3 mt-4"><a class="underline" href="https://baburajan03.github.io/WEBCODE-MAKEUP-API--TASK/HOME/index.html" >Home</a></li>
 <li class="ms-3 mt-4"><a class="underline" href="https://baburajan03.github.io/WEBCODE-MAKEUP-API--TASK/BRANDS/index.html">Brands</a></li>
 <li class="ms-3 mt-4"><a class="underline" href="https://baburajan03.github.io/WEBCODE-MAKEUP-API--TASK/PRODUCTS/index.html">Products</a></li>
 <li class="ms-3 mt-4"><a class="underline" href="https://baburajan03.github.io/WEBCODE-MAKEUP-API--TASK/CONTACT%20US/index.html">ContactUs</a></li>
 </ul>`
-container.appendChild(row1)
+container1.appendChild(row1)
 
-let apiUrl = 'https://makeup-api.herokuapp.com/api/v1/products.json';
+let row2 = document.createElement('div')
+row2.classList.add('row')
+row2.setAttribute('id','row2')
+container1.appendChild(row2)
 
-async function fetchdatas(){
+async function fetchdata(){
     try{
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        const productTypes = [...new Set(data.map(product => product.product_type))]
-        return productTypes
+        let response = await fetch('http://makeup-api.herokuapp.com/api/v1/products.json')
+        let data = await response.json()
+        return data
+       
     }
     catch(error){
-        console.error('Error fetching or processing data:', error);
-        return [];
     }
 }
 
-async function displayProductTypes() {
-    let productTypes = await fetchdatas()
+async function getdetailsbybrands(){
+   
+        let getdata = await fetchdata()
 
-    var container = document.createElement('div')
-    container.classList.add('container')
-    
-    document.body.appendChild(container)
-
-    var row1= document.createElement('div')
-    row1.classList.add('row')
-    container.appendChild(row1)
-
-    productTypes.forEach(productType => {
-        let col1 = document.createElement('div')
-        col1.classList.add('col','btn','btn-success','m-2')
-        col1.textContent = productType;
-        col1.addEventListener('click', () => {
-            displayResults(productType);
-        })
-        row1.appendChild(col1);
-    })
-    let row2 = document.createElement('div')
-    
-    row2.setAttribute('id','results')
-    row2.classList.add('row')
-    container.appendChild(row2)
-}
-
-async function displayResults(productType) {
-    let response = await fetch(apiUrl)
-    let data = await response.json()
-
-    let filteredProducts = data.filter(product => product.product_type === productType)
-    console.log(filteredProducts)
-
-    let result = document.getElementById('results')
-    result.innerHTML = ''
-
-    filteredProducts.forEach((e) =>{
+        let rows = document.getElementById('row2')
         
-    let column1 = document.createElement('div')
-        column1.setAttribute('class','col')
-        result.appendChild(column1)
+        getdata.forEach((e) => {
+    
+        let column1 = document.createElement('div')
+        column1.setAttribute('class','col-6')
+        column1.setAttribute('id','column')
+        rows.appendChild(column1)
         
         let column2 = document.createElement('div')
         column1.appendChild(column2) 
@@ -111,8 +80,8 @@ async function displayResults(productType) {
         button.classList.add('btn','btn-outline-secondary')
         button.innerHTML = "Buy Now"
         column4.appendChild(button)
-        result.appendChild(column1)
+        rows.appendChild(column1)
     })
     }
-
-displayProductTypes()
+    
+        getdetailsbybrands()
