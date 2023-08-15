@@ -28,7 +28,7 @@ row3.innerHTML = `<div  class="col-12 ms-5">
 <ul type="none">
     <li><h5>Phone &nbsp &nbsp:  +123-456-7890</h5></li>
     <li><h5>Email &nbsp &nbsp : makeup@website.com</h5></li>
-    <li><h5>Address : 123, Anywhere, AnyCountry</h5></li>
+    <li><h5>Address : 123, Anywhere, AnyCountry </h5></li>
 </ul>
 </div>`
 container.appendChild(row3)

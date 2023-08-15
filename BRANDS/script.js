@@ -18,10 +18,12 @@ row2.classList.add('row')
 row2.setAttribute('id','row2')
 container1.appendChild(row2)
 
+let apiUrl = 'https://makeup-api.herokuapp.com/api/v1/products.json';
+
 async function fetchdata(){
     try{
-        let response = await fetch('http://makeup-api.herokuapp.com/api/v1/products.json')
-        let data = await response.json()
+        let response = await fetch(apiUrl);
+        let data = await response.json();
         return data
        
     }
@@ -31,7 +33,7 @@ async function fetchdata(){
 
 async function getdetailsbybrands(){
    
-        let getdata = await fetchdata()
+        let getdata = await fetchdata();
 
         let rows = document.getElementById('row2')
         
